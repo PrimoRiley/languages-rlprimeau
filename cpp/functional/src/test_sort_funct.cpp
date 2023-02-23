@@ -1,6 +1,5 @@
 #include <cmath>
 #include <vector>
-#include <algorithm>
 #include "../include/sort_proc.h"
 #include "gtest/gtest.h"
 
