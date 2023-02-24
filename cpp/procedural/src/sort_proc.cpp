@@ -3,25 +3,22 @@
 
 // https://en.wikipedia.org/wiki/Procedural_programming
 // Procedural style modifys your intputs. Makes a bunch of adjustments to the list to sort and return the 
-// re-adjust list.
+// re-adjust list. This is selection sort in a procedural style. 
 
 void sort_proc(std::vector<std::string> &items, int left, int right) {
-  left = 0;
-  right = items.size();
-  int i = 0, j = items.size();
-    std::string pivot = items[(i + j) / 2];
-    
-    while (i <= j) {
-        while (items[i] < pivot) i++;
-        while (items[j] > pivot) j--;
-        
-        if (i <= j) {
-            swap(items[i], items[j]);
-            i++;
-            j--;
+  int n = items.size();
+    for (int i = 0; i < n - 1; i++) {
+        int minIndex = i;
+        for (int j = i+1; j<n; j++) {
+            if (items[j] < items[minIndex]) {
+                minIndex = j;
+            }
+        }
+        if (minIndex != i) {
+            std::string temp = items[i];
+            items[i] = items[minIndex];
+            items[minIndex] = temp;
         }
     }
-    
-    if (left < j) sort_proc(items, left, j);
-    if (i < right) sort_proc(items, i, right);
 }
+
