@@ -2,5 +2,9 @@
 
 std::string hello(std::string name)
 {
-  return "Hello, " + name + "!";
+  std::string message;
+  message += "Hello, ";
+  message += name;
+  message += "!";
+  return message;
 }

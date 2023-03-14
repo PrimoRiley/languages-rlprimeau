@@ -1,62 +1,74 @@
-#include "../include/sort_proc.h"
-#include <algorithm>
-#include <string>
+#include <iostream>
+#include "sort_func.h"
+#include "utility.h"
+#include "merger.h"
 
-//implementation of merge is procedural
-std::vector<std::string> merge(const std::vector<std::string> &first, const std::vector<std::string> &second){
-    auto i = first.begin();
-    auto j = second.begin();
+#if 0
+template <typename T, typename Ordered = std::less < T > >
+std::vector<T> sort_func(typename std::vector<T>::const_iterator begin, 
+                          typename std::vector<T>::const_iterator end) {
+  typename std::vector<T>::difference_type size =  end - begin;
+  if (size <= 1) {
+    return std::vector<T>(begin,end);
+  }
 
-    std::vector<std::string> ans;
-    // to do
-    if(j == second.end())
-        return first;
-    if(i == first.end())
-        return second;
+  auto a0 = begin;
+  auto a1 = a0 + size/2;
+  auto b0 = a1;
+  auto b1 = end;
 
-    ans.insert(ans.end(), i, first.end());  
-    ans.insert(second.end(), j, second.end());
+  auto a = sort_func<T,Ordered>(a0,a1);
+  auto b = sort_func<T,Ordered>(b0,b1);
 
-    //stable sorts: for duplicate values the original order is preserved
-    while(i != first.end() && j != second.end()){
-        if(*j < *i){
-            ans.push_back(*j);
-            j++;
-        }else{
-            ans.push_back(*i);
-            i++;
+  merger<typename std::vector<T>::const_iterator,typename std::vector<T>::const_iterator,Ordered> m(a.begin(),a.end(),b.begin(),b.end());
+  return std::vector < T > (m.begin(),m.end());
+}
+#endif
+
+std::vector<std::string> merge(const std::vector<std::string> &a, const std::vector<std::string> &b) {
+  if (a.size() == 0) return b;
+  if (b.size() == 0) return a;
+
+  if (b[0] < a[0]) {
+    return vec(b[0],merge(a,slice(b,1,b.size())));
+  } else {
+    return vec(a[0],merge(slice(a,1,a.size()),b));
+  }
+}
+
+std::vector<std::string>  sort_func(const std::vector<std::string> &items) {
+  if (items.size() <= 1) { return items; }
+  auto a = sort_func(slice(items,0,items.size()/2));
+  auto b = sort_func(slice(items,items.size()/2,items.size()));
+  return merge(a,b);
+}
+
+std::vector<std::string> quicksort(const std::vector<std::string> &items) { 
+  if (items.size() <= 1) return items;
+
+    std::string pivot = items[0];
+    std::vector<std::string> left, right;
+
+    partition(items, left, right, pivot); 
+
+    std::vector<std::string> sorted_left = quicksort(left);
+    std::vector<std::string> sorted_right = quicksort(right);
+    std::vector<std::string> result;
+
+    result = vec(combine_subvectors(sorted_left, sorted_right, pivot));
+
+    return result;
+}
+
+
+void partition(std::vector<std::string> items, std::vector<std::string> &left, std::vector<std::string> &right, std::string &pivot) {
+  for (int i = 1; i < items.size(); i++) {
+        if (items[i] < pivot) {
+            left.push_back(items[i]);
+        } else {
+            right.push_back(items[i]);
         }
     }
-
-    
-
-
-  
-
 }
 
-// functional
-std::vector<std::string> sort_func(const std::vector<std::string>::const_iterator begin, const std::vector<std::string>::const_iterator end)
-{
-    // const interators are nice because they garuntee you wont modify the vector
-    size_t size = end - begin;
-    if(size <= 1){
-        return std::vector<std::string>(begin,end);
-    }
-
-    auto firstBegin = begin;
-    auto firstEnd = firstBegin + size/2;
-    auto secondBegin = firstEnd;
-    auto secondEnd = end;
-
-    auto firstSorted = sort_func(firstBegin, firstEnd);
-    auto secondSorted = sort_func(secondBegin, secondEnd);
-
-    return merge(firstSorted, secondSorted);
-}
-
-//functional
-std::vector<std::string> sort_func(const std::vector<std::string> &items){
-   return sort_func(items.begin(), items.end());
-}
 
