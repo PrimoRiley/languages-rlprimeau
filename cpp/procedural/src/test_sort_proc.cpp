@@ -2,6 +2,7 @@
 #include "sort_proc.h"
 #include "gtest/gtest.h"
 #include "utility.h"
+#include <iostream>
 
 using namespace std;
 
@@ -50,7 +51,9 @@ TEST(Sort, Proc) {
 
       std::vector < std::string > result(items);
 
+      std::cout<<"sorting"<<std::endl;
       sort_proc(result);
+      std::cout<<"done"<<std::endl;
 
       ASSERT_EQ(expect,result) << " for items = " << items;
     }

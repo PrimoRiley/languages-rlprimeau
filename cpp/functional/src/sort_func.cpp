@@ -49,7 +49,8 @@ std::vector<std::string> quicksort(const std::vector<std::string> &items) {
     std::string pivot = items[0];
     std::vector<std::string> left, right;
 
-    partition(items, left, right, pivot); 
+    left = partition_left(items, pivot);
+    right = partition_right(items, pivot);
 
     std::vector<std::string> sorted_left = quicksort(left);
     std::vector<std::string> sorted_right = quicksort(right);
@@ -61,14 +62,23 @@ std::vector<std::string> quicksort(const std::vector<std::string> &items) {
 }
 
 
-void partition(std::vector<std::string> items, std::vector<std::string> &left, std::vector<std::string> &right, std::string &pivot) {
+std::vector<std::string> partition_left(std::vector<std::string> items, std::string pivot) {
+  std::vector<std::string> left;
   for (int i = 1; i < items.size(); i++) {
         if (items[i] < pivot) {
             left.push_back(items[i]);
-        } else {
-            right.push_back(items[i]);
         }
     }
+  return left;
+}
+
+std::vector<std::string> partition_right(std::vector<std::string> items, std::string pivot) {
+  std::vector<std::string> right;
+  for (int i = 1; i < items.size(); i++) {
+        if (items[i] >= pivot)
+            right.push_back(items[i]);
+    }
+    return right;
 }
 
 

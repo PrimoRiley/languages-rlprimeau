@@ -5,4 +5,5 @@
 
 std::vector<std::string>  sort_func(const std::vector<std::string> &items);
 std::vector<std::string> quicksort(const std::vector<std::string> &items);
-void partition(std::vector<std::string> items, std::vector<std::string> &right, std::vector<std::string> &left, std::string &pivot);
+std::vector<std::string> partition_right(std::vector<std::string> items, std::string pivot);
+std::vector<std::string> partition_left(std::vector<std::string> items, std::string pivot);
