@@ -51,9 +51,9 @@ TEST(Sort, Proc) {
 
       std::vector < std::string > result(items);
 
-      std::cout<<"sorting"<<std::endl;
+      //std::cout<<"sorting"<<std::endl;
       sort_proc(result);
-      std::cout<<"done"<<std::endl;
+      //std::cout<<"done"<<std::endl;
 
       ASSERT_EQ(expect,result) << " for items = " << items;
     }

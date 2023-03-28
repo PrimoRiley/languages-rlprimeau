@@ -5,7 +5,6 @@
 void sort_proc(std::vector<std::string> &items, size_t n)
 {
   int i, j, min;
-  //std::cout<<n<<std::endl;
 
   for (int i = 0; i < n - 1; i++)
   {
@@ -17,9 +16,14 @@ void sort_proc(std::vector<std::string> &items, size_t n)
       }
     }
     if(min != i)
-      swap(items[i], items[j]);
+		{
+        	// Swap
+			std::string temp = items[i];
+			items[i] = items[min];
+			items[min] = temp;
+		}
   }
-
+  //std::cout<<"Done!"<<std::endl;
 }
 
 void sort_proc(std::vector<std::string> &items)
