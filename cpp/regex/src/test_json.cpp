@@ -21,7 +21,7 @@ TEST(RegEx,JsonStrings) {
     R"=("\n")=",
     R"=("\r")=",
     R"=("\t")=",
-    //R"=("\uAD7F)=", // I have spent way too long trying to get this expression to match and can't understand why. please just take some points
+    R"=("\uAD7F")=",
     R"=("\\x")=",
     R"=("\"'")=",
     R"=(" \/")=",
