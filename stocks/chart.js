@@ -1,6 +1,6 @@
 anychart.onDocumentReady(function () {
     anychart.data.loadCsvFile(
-      'https://query1.finance.yahoo.com/v7/finance/download/$googl?period1=0&period2=9999999999&interval=1d&events=history&includeAdjustedClose=true',
+      'https://raw.githubusercontent.com/PrimoRiley/languages-rlprimeau/main/stocks/GOOGL.csv',
       function (data) {
         // create data table on loaded data
         var dataTable = anychart.data.table();
