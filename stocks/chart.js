@@ -6,7 +6,7 @@ anychart.onDocumentReady(function () {
         var dataTable = anychart.data.table();
         dataTable.addData(data);
   
-        // map loaded data for the candlestick series
+        // specifies the data that will show on hover 
         var mapping = dataTable.mapAs({
           open: 1,
           high: 2,
@@ -24,7 +24,7 @@ anychart.onDocumentReady(function () {
         plot.yGrid(true).xGrid(true).yMinorGrid(true).xMinorGrid(true);
 
         var series = plot.candlestick(mapping)
-                .name('Tesla');
+                .name('Google');
 
         series.legendItem().iconType('rising-falling');
 
@@ -47,7 +47,7 @@ anychart.onDocumentReady(function () {
         rangeSelector.render(chart);
 
         // sets the title of the chart
-        chart.title('Tesla Inc. Stock Chart');
+        chart.title('Google Inc. Stock Chart');
 
         // set container id for the chart
         chart.container('container');
